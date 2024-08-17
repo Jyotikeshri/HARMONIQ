@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Message from "../models/MessageModel.js";
+import { uploadFile as uploadToCloudinary } from "../config/cloudinaryConfig.js";
 import { mkdirSync, renameSync } from "fs";
 import User from "../models/UserModel.js";
 
@@ -95,24 +96,18 @@ export const getContactsForDMList = async (request, response, next) => {
   }
 };
 
-export const uploadFile = async (request, response, next) => {
+export const uploadFile = async (req, res, next) => {
   try {
-    if (!request.file) {
-      return response.status(400).send("File is required");
+    if (!req.file) {
+      return res.status(400).send("File is required");
     }
 
-    const date = Date.now();
-    const fileDir = `uploads/files/${date}`;
-    const fileName = `${fileDir}/${request.file.originalname}`;
+    const filePath = req.file.path; // URL returned by Cloudinary
 
-    mkdirSync(fileDir, { recursive: true });
-
-    renameSync(request.file.path, fileName);
-
-    return response.status(200).json({ filePath: fileName });
+    return res.status(200).json({ filePath });
   } catch (error) {
     console.log({ error });
-    return response.status(500).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 };
 

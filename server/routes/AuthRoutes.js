@@ -12,6 +12,7 @@ import {
 } from "../controllers/AuthConroller.js";
 import { verifyToken } from "../middleware/AuthMiddleware.js";
 import multer from "multer";
+import { uploadImage } from "../config/cloudinaryConfig.js";
 
 // Ensure the uploads directory exists
 const upload = multer({ dest: "/uploads/profiles/" });
@@ -26,7 +27,7 @@ router.post("/update-user", verifyToken, updateUserInfo);
 router.post(
   "/add-profile-image",
   verifyToken,
-  upload.single("profile-image"),
+  uploadImage.single("profile-image"),
   updateUserImage
 );
 router.delete("/remove-profile-image", verifyToken, removeUserImage);

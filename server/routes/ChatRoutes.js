@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { verifyToken } from "../middleware/AuthMiddleware.js";
+import { uploadFile as uploadToCloudinary } from "../config/cloudinaryConfig.js";
 import {
   getContactsForDMList,
   getMessages,
@@ -14,7 +15,7 @@ const upload = multer({ dest: "/uploads/files/" });
 chatRoutes.post(
   "/upload-files",
   verifyToken,
-  upload.single("file"),
+  uploadToCloudinary.single("file"),
   uploadFile
 );
 

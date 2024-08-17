@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/UserModel.js";
 import dotenv from "dotenv";
 import { compare } from "bcrypt";
+import { uploadImage } from "../config/cloudinaryConfig.js";
 import { existsSync, renameSync, unlinkSync } from "fs";
 import path from "path";
 
@@ -160,30 +161,32 @@ export const updateUserInfo = async (request, response, next) => {
 //   }
 // };
 
-export const updateUserImage = async (request, response) => {
-  console.log("File received:", request.file);
+// Assuming your config is in config/cloudinaryConfig.js
+
+export const updateUserImage = async (req, res) => {
   try {
-    if (!request.file) {
-      return response.status(400).json({ message: "No file uploaded" });
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const date = Date.now();
-    const fileName = `uploads/profiles/${date}_${request.file.originalname}`;
-    renameSync(request.file.path, fileName);
+    const userId = req.userId;
+    const imageUrl = req.file.path; // This path is the URL returned by Cloudinary
+
     const updatedUser = await User.findByIdAndUpdate(
-      request.userId,
-      { image: fileName },
+      userId,
+      { image: imageUrl },
       {
         new: true,
         runValidators: true,
       }
     );
-    return response.status(200).json({
+
+    return res.status(200).json({
       image: updatedUser.image,
     });
   } catch (error) {
     console.error(error);
-    return response.status(500).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 };
 

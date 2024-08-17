@@ -129,7 +129,7 @@ const MessageContainer = () => {
               }}
             >
               <img
-                src={`${API_URI}/${message.fileUrl}`}
+                src={`${message.fileUrl}`}
                 alt={`Image file: ${message.fileUrl.split("/").pop()}`}
                 height={300}
                 width={300}
@@ -140,6 +140,7 @@ const MessageContainer = () => {
               <span className="text-white/8 text-3xl rounded-full bg-black/20 p-3">
                 <MdFolderZip />
               </span>
+              {console.log("message : ", message)}
               <span>{message.fileUrl.split("/").pop()}</span>
               <span
                 className="bg-black/20 text-2xl hover:bg-black/50  p-3 rounded-full cursor-pointer transition-all duration-300  "
@@ -171,6 +172,9 @@ const MessageContainer = () => {
     const alignmentClass = isCurrentUser ? "text-right" : "text-left";
     const marginClass = isCurrentUser ? "ml-auto" : "mr-auto";
 
+    {
+      console.log("message channel : ", message);
+    }
     // Check if file URL is for an image
     const isImage = checkIfImage(message.fileUrl);
 
@@ -197,7 +201,7 @@ const MessageContainer = () => {
                 }}
               >
                 <img
-                  src={`${API_URI}/${message.fileUrl}`}
+                  src={`${message.fileUrl}`}
                   alt={`Image file: ${message.fileUrl.split("/").pop()}`}
                   height={300}
                   width={300}
@@ -283,7 +287,7 @@ const MessageContainer = () => {
         <div className="fixed z-[1000] top-0 left-0 h-[100vh] w-[100vw] flex items-center justify-center backdrop-blur-lg">
           <div>
             <img
-              src={`${API_URI}/${imageURL}`}
+              src={`${imageURL}`}
               className="h-[80vh] w-full object-cover"
               alt="Displayed Content" // Always include alt text for images
             />
