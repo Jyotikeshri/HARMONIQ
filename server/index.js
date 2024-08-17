@@ -35,18 +35,15 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/message", chatRoutes);
 app.use("/api/channel", channelRoutes);
 
+const dirPath =
+  process.env.NODE_ENV === "production"
+    ? path.resolve()
+    : path.join(__dirname, "client", "dist");
+
 if (process.env.NODE_ENV === "production") {
-  const dirPath = path.resolve();
-  console.log("Serving static files from:", path.join(dirPath, "client/dist"));
-
-  app.use(express.static(path.join(dirPath, "client/dist")));
-
+  app.use(express.static(path.join(dirPath, "client", "dist")));
   app.get("*", (req, res) => {
-    console.log(
-      "Sending file:",
-      path.resolve(dirPath, "client/dist", "index.html")
-    );
-    res.sendFile(path.resolve(dirPath, "client/dist", "index.html"));
+    res.sendFile(path.resolve(dirPath, "client", "dist", "index.html"));
   });
 }
 

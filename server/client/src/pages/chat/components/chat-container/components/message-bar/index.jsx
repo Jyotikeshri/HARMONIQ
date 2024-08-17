@@ -73,6 +73,7 @@ const MessageBar = () => {
       const file = event.target.files[0];
       if (file) {
         const formData = new FormData();
+        console.log("file", file);
         formData.append("file", file);
         setIsUploading(true);
         const response = await axios.post(UPLOAD_FILE_ROUTE, formData, {

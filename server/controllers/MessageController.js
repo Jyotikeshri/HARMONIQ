@@ -98,6 +98,7 @@ export const getContactsForDMList = async (request, response, next) => {
 
 export const uploadFile = async (req, res, next) => {
   try {
+    console.log(req.file);
     if (!req.file) {
       return res.status(400).send("File is required");
     }
