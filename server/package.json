@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node index.js",
     "start": "node index.js",
-    "install-client": "npm install --legacy-peer-deps --prefix server/client",
-    "build-client": "npx vite build --prefix server/client",
+    "install-client": "npm install --legacy-peer-deps --prefix client",
+    "build-client": "npx vite build --prefix client",
     "build": "npm run install-client && npm run build-client"
   },
   "dependencies": {
