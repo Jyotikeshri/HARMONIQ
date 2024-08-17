@@ -35,11 +35,11 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/message", chatRoutes);
 app.use("/api/channel", channelRoutes);
 
-if (process.env.NODE_ENV == "production") {
+if (process.env.NODE_ENV === "production") {
   const dirPath = path.resolve();
-  app.use(express.static("./client/dist"));
+  app.use(express.static(path.join(dirPath, "client/dist")));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(dirPath, "./client/dist", "index.html"));
+    res.sendFile(path.resolve(dirPath, "client/dist", "index.html"));
   });
 }
 
