@@ -15,7 +15,7 @@ import multer from "multer";
 import { uploadImage } from "../config/cloudinaryConfig.js";
 
 // Ensure the uploads directory exists
-const upload = multer({ dest: "/uploads/profiles/" });
+// const upload = multer({ dest: "/uploads/profiles/" });
 
 const router = express.Router();
 

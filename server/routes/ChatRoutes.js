@@ -10,7 +10,7 @@ import multer from "multer";
 
 const chatRoutes = Router();
 
-const upload = multer({ dest: "/uploads/files/" });
+// const upload = multer({ dest: "/uploads/files/" });
 
 chatRoutes.post(
   "/upload-files",
